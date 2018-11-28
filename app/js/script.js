@@ -18,12 +18,37 @@ for(var i = 0; i < snake_position.length; i++) {
     var snake_positionY = snake_position[i][1];
     var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
     snake_position_number[i] = +positionNumber;
-    cells[snake_position_number[i]].style.backgroundColor = "red";
+    cells[snake_position_number[i]].classList.add('snake');
 }
 
 
 
 
 function keyPress() {
+    var event = window.event;
+    if(event.keyCode == 37) {
+        left();
+    }
+    if(event.keyCode == 38) {
+        up();
+    }
+    if(event.keyCode == 39) {
+        right();
+    }
+    if(event.keyCode == 40) {
+        down();
+    }
+}
 
+function down() {
+    snake_position.push([snake_position[snake_position.length-1][0] , snake_position[snake_position.length-1][1]+1] );
+    cells[snake_position_number[0]].classList.remove('snake');
+    snake_position.shift();
+    for(var i = 0; i < snake_position.length; i++) {
+    var snake_positionX = snake_position[i][0];
+    var snake_positionY = snake_position[i][1];
+    var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
+    snake_position_number[i] = +positionNumber;
+    cells[snake_position_number[i]].classList.add('snake');
+}
 }
