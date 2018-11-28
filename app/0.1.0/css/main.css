@@ -1,0 +1,6 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(15, 50px);
+  grid-template-rows: repeat(9, 50px); }
+  .wrapper .cell {
+    border: 1px solid black; }
