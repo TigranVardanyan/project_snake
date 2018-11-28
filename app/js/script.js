@@ -1,24 +1,26 @@
 'use strict'
 document.onkeydown = keyPress; // при спуске клавишы в документе выполнить keyPress
-var snake_position = [];
-var snake_position_number = [];
-var position_once = 0;
-var xMax = 15;
-var yMax = 8;
-var snake_position_first_X;
-var snake_position_first_Y;
-snake_position[0] = [3, 4];
-snake_position[1] = [4, 4];
-snake_position[2] = [5, 4];
-snake_position[3] = [6, 4];
-var cells = document.getElementsByClassName('cell'); //все ячейки
-
-for(var i = 0; i < snake_position.length; i++) {
-    var snake_positionX = snake_position[i][0];
-    var snake_positionY = snake_position[i][1];
-    var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
-    snake_position_number[i] = +positionNumber;
-    cells[snake_position_number[i]].classList.add('snake');
+var snake_position = []; //массив с координатами частей  змейки
+var snake_position_number = []; //массив с номеропозицией частей змейки
+var xMax = 15; // длина поля
+var yMax = 8; // высота поля
+var snake_position_first_X; // позиция Х головы змеи
+var snake_position_first_Y; // позиция У головы змеи
+var snake_positionX // массив с позициями  Х частей змеи
+var snake_positionY // массив с позициями  У частей змеи
+snake_position[0] = [3, 4]; // вводим координаты тела змеи
+snake_position[1] = [4, 4]; // вводим координаты тела змеи
+snake_position[2] = [5, 4]; // вводим координаты тела змеи
+snake_position[3] = [6, 4]; // вводим координаты тела змеи
+snake_position[4] = [7, 4]; // вводим координаты тела змеи
+snake_position[5] = [8, 4]; // вводим координаты тела змеи
+var cells = document.getElementsByClassName('cell'); //все ячейки поля
+for(var i = 0; i < snake_position.length; i++) { // от [0 , 5] 
+    snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
+    snake_positionY = snake_position[i][1];
+    var positionNumber = +xMax*(snake_positionY-1)+snake_positionX; // считает номеропозицию каждой части
+    snake_position_number[i] = +positionNumber; // добовляем в массив
+    cells[snake_position_number[i]].classList.add('snake'); //каждому элементу массива добовляет класс снейк
 }
 
 function keyPress() {
@@ -39,12 +41,27 @@ function keyPress() {
     }
     cells[snake_position_number[0]].classList.remove('snake');
     snake_position.shift();
-    for(var i = 0; i < snake_position.length; i++) {
-        var snake_positionX = snake_position[i][0];
-        var snake_positionY = snake_position[i][1];
-        var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
-        snake_position_number[i] = +positionNumber;
-        cells[snake_position_number[i]].classList.add('snake');
+    for(var i = 0; i < snake_position.length; i++) { // от [0 , 5] 
+        snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
+        snake_positionY = snake_position[i][1];
+        var positionNumber = +xMax*(snake_positionY-1)+snake_positionX; // считает номеропозицию каждой части
+        snake_position_number[i] = +positionNumber; // добовляем в массив
+        cells[snake_position_number[i]].classList.add('snake'); //каждому элементу массива добовляет класс снейк
+
+    }
+    for(var i = 0; i < snake_position_number.length; i++) {
+        var k = 0;
+        var opt1 = snake_position_number[i];
+        for(var j = 0; j < snake_position_number.length; j++) {
+            var opt2 = snake_position_number[j];
+            if(opt1 == opt2) {
+                k++;
+            }
+        }   
+        if(k > 1) {
+            gameover();
+            break;
+        }
     }
 }
 
@@ -65,19 +82,19 @@ function down() {
     }
 }
 function up() {
-    if(snake_position_first_Y == 0) {
+    if(snake_position_first_Y == 1) {
         gameover();
     }
     else {
-        snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+        snake_position.push([snake_position_first_X , snake_position_first_Y-1]);
     }
 }
 function right() {
-    if(snake_position_first_X == xMax+1) {
+    if(snake_position_first_X == xMax-1) {
         gameover();
     }
     else {
-        snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+        snake_position.push([snake_position_first_X+1 , snake_position_first_Y]);
     }
 }
 function left() {
@@ -85,6 +102,6 @@ function left() {
         gameover();
     }
     else {
-        snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+        snake_position.push([snake_position_first_X-1 , snake_position_first_Y]);
     }
 }

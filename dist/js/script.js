@@ -1,118 +1,109 @@
+'use strict'
 document.onkeydown = keyPress; // при спуске клавишы в документе выполнить keyPress
-
-var x1 = 0, y1 = 0;
-var snakePosition = []; // массив с точками позиции всех частей змейки
-var cells = document.getElementsByClassName('cell'); //все ячейки
-snakePosition.push([8 , 5]); //начальная точка
-var x = (snakePosition[0])[0]; // координата х
-var y = (snakePosition[0])[1]; // координата у
-var firstPosNumber = (y-1)*15+x; // формула подсчета позиционного номера
-var lastPosNumber = 0; //
-cells[firstPosNumber-1].style.backgroundColor = "red"; // красит первую точку
-var con = 0;
-
-
-
-// alert(snakePosition[0]);
-var green = window.getComputedStyle( document.getElementsByClassName('test')[0] ,null).getPropertyValue('background-color');
-function keyPress() {
-	var k = 0;
-	var foodPos = 0;
-    var event = window.event; //ловит эвент, пока не ясно как //уже ясно
-    var x = (snakePosition[0])[0]; // координата х
-    var y = (snakePosition[0])[1]; // координата у
-    //работает же при функции keyPress а та только на onkeydown срабатывает
-    for(let i = 0; i<134; i++) {
-    	if(window.getComputedStyle( document.getElementsByClassName('cell')[i] ,null).getPropertyValue('background-color') == green) {
-    		k++;
-    		foodPos = i;
-    	}	
-    }
-    if(k == 0) {
-    	cells[randFood()].style.backgroundColor = "green";
-    }
-    if(con != 0) {
-        snakePosition.pop()
-    }
-    lastPos = snakePosition[snakePosition.length - 1];
-    x1 = lastPos[0]; // принимают старые значения (до смены)
-    y1 = lastPos[1]; // принимают старые значения
-    // console.log(event.keyCode)
-    snakePosition.push([x1,y1]); // добавляет в конец масива х и у до перемешения
-    if(event.keyCode == 37) { // левая стрелка
-    	if(x == 1) {
-    		x = 15;
-    	}
-    	else {
-    		x = --x;
-    	}
-    }
-    if (event.keyCode == 38) { //вверх
-    	if(y == 1) {
-    		y = 9;
-    	}
-    	else {
-    		y = --y;
-    	}
-    }
-    if (event.keyCode == 39) { //правая
-    	if(x == 15) {
-    		x = 1;
-    	}
-    	else {
-    		x = ++x;
-    	}
-    }
-    if (event.keyCode == 40) { // в низ
-    	if(y == 9) {
-    		y = 1;
-    	}
-    	else {
-    		y = ++y;
-    	}
-    }
-    snakePosition[0] = [x,y]; //меняет координаты первого эл массива на те куда двинулась змея
-    var firstX = snakePosition[0][0]; 
-    var firstY = snakePosition[0][1];
-    firstPosNumber = (firstY-1)*15+firstX; // место головы змеи
-    if(firstPosNumber-1 != foodPos) { // ловит эвент когда змейка ест пищу
-        let lastX = snakePosition[snakePosition.length-1][0];
-        let lastY = snakePosition[snakePosition.length-1][1];
-        let lastPos = ((lastY-1)*15+lastX); 
-        cells[lastPos-1].style.backgroundColor = 'white';
-    	snakePosition.pop();
-        con = 0;
-    }
-    else {
-        con ++;
-    }
-
-    for(let i = 0; i < snakePosition.length; i++) {
-        let x2 = snakePosition[i][0];
-        let y2 = snakePosition[i][1];
-        let position = (y2-1)*15+x2;
-        cells[position-1].style.backgroundColor = 'red';
-        let delPos = 
-        cells
-
-    }
-};
-
-function randFood() {
-	let i = Math.round((Math.random()*134));
-	if(i == firstPosNumber) {
-		randFood()
-	}
-	else {
-		for(let j=0; j < 136; j++) {
-			let color = cells[68].style.backgroundColor;
-			if( color != "green") {
-				return +i;
-		    }
-		}
-	}
+var snake_position = []; //массив с координатами частей  змейки
+var snake_position_number = []; //массив с номеропозицией частей змейки
+var xMax = 15; // длина поля
+var yMax = 8; // высота поля
+var snake_position_first_X; // позиция Х головы змеи
+var snake_position_first_Y; // позиция У головы змеи
+var snake_positionX // массив с позициями  Х частей змеи
+var snake_positionY // массив с позициями  У частей змеи
+snake_position[0] = [3, 4]; // вводим координаты тела змеи
+snake_position[1] = [4, 4]; // вводим координаты тела змеи
+snake_position[2] = [5, 4]; // вводим координаты тела змеи
+snake_position[3] = [6, 4]; // вводим координаты тела змеи
+snake_position[4] = [7, 4]; // вводим координаты тела змеи
+snake_position[5] = [8, 4]; // вводим координаты тела змеи
+var cells = document.getElementsByClassName('cell'); //все ячейки поля
+for(var i = 0; i < snake_position.length; i++) { // от [0 , 5] 
+    snake_positionX = snake_position[i][0];
+    snake_positionY = snake_position[i][1];
+    var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
+    snake_position_number[i] = +positionNumber;
+    cells[snake_position_number[i]].classList.add('snake');
 }
 
+function keyPress() {
+    for(var i = 0; i < snake_position.length; i++) {
+        var k = 0;
+        snake_positionX = snake_position[i][0];
+        snake_positionY = snake_position[i][1];
+        var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
+        for(var i = 0; i < snake_position.length; i++) {
+            var snake_positionX = snake_position[i][0];
+            var snake_positionY = snake_position[i][1];
+            var positionNumberTest = +xMax*(snake_positionY-1)+snake_positionX;
+            if(positionNumber == positionNumberTest) {
+                k++
+            }
+            if(k == 2) {
+                gameover();
+            }
+        }
+    }
+    snake_position_first_X = snake_position[snake_position.length-1][0];
+    snake_position_first_Y = snake_position[snake_position.length-1][1];
+    var event = window.event;
+    if(event.keyCode == 37) {
+        left();
+    }
+    if(event.keyCode == 38) {
+        up();
+    }
+    if(event.keyCode == 39) {
+        right();
+    }
+    if(event.keyCode == 40) {
+        down();
+    }
+    cells[snake_position_number[0]].classList.remove('snake');
+    snake_position.shift();
+    for(var i = 0; i < snake_position.length; i++) {
+        snake_positionX = snake_position[i][0];
+        snake_positionY = snake_position[i][1];
+        var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
+        snake_position_number[i] = +positionNumber;
+        cells[snake_position_number[i]].classList.add('snake');
+    }
+}
 
+function gameover() {
+    alert("game over");
+    for(var i = 0; i < snake_position.length; i++) {
+        cells[snake_position_number[i]].classList.remove('snake');
+    }
+    snake_position = [];
+}
 
-// alert();
+function down() {
+    if(snake_position_first_Y == yMax+1) {
+        gameover();
+    } 
+    else {
+        snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+    }
+}
+function up() {
+    if(snake_position_first_Y == 1) {
+        gameover();
+    }
+    else {
+        snake_position.push([snake_position_first_X , snake_position_first_Y-1]);
+    }
+}
+function right() {
+    if(snake_position_first_X == xMax-1) {
+        gameover();
+    }
+    else {
+        snake_position.push([snake_position_first_X+1 , snake_position_first_Y]);
+    }
+}
+function left() {
+    if(snake_position_first_X == 0) {
+        gameover();
+    }
+    else {
+        snake_position.push([snake_position_first_X-1 , snake_position_first_Y]);
+    }
+}
