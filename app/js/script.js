@@ -1,12 +1,12 @@
 'use strict'
-
 document.onkeydown = keyPress; // при спуске клавишы в документе выполнить keyPress
-
 var snake_position = [];
 var snake_position_number = [];
 var position_once = 0;
 var xMax = 15;
 var yMax = 8;
+var snake_position_first_X;
+var snake_position_first_Y;
 snake_position[0] = [3, 4];
 snake_position[1] = [4, 4];
 snake_position[2] = [5, 4];
@@ -21,10 +21,9 @@ for(var i = 0; i < snake_position.length; i++) {
     cells[snake_position_number[i]].classList.add('snake');
 }
 
-
-
-
 function keyPress() {
+    snake_position_first_X = snake_position[snake_position.length-1][0];
+    snake_position_first_Y = snake_position[snake_position.length-1][1];
     var event = window.event;
     if(event.keyCode == 37) {
         left();
@@ -49,15 +48,43 @@ function keyPress() {
     }
 }
 
+function gameover() {
+    alert("game over");
+    for(var i = 0; i < snake_position.length; i++) {
+        cells[snake_position_number[i]].classList.remove('snake');
+    }
+    snake_position = [];
+}
+
 function down() {
-    snake_position.push([snake_position[snake_position.length-1][0] , snake_position[snake_position.length-1][1]+1] );
+    if(snake_position_first_Y == yMax+1) {
+        gameover();
+    } 
+    else {
+        snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+    }
 }
 function up() {
-    snake_position.push([snake_position[snake_position.length-1][0] , snake_position[snake_position.length-1][1]-1] );
+    if(snake_position_first_Y == 0) {
+        gameover();
+    }
+    else {
+        snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+    }
 }
 function right() {
-    snake_position.push([snake_position[snake_position.length-1][0]+1 , snake_position[snake_position.length-1][1]] );
+    if(snake_position_first_X == xMax+1) {
+        gameover();
+    }
+    else {
+        snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+    }
 }
 function left() {
-    snake_position.push([snake_position[snake_position.length-1][0]-1 , snake_position[snake_position.length-1][1]] );
+    if(snake_position_first_X == 0) {
+        gameover();
+    }
+    else {
+        snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+    }
 }
