@@ -16,6 +16,8 @@ var apple_position_X;
 var apple_position_Y;
 var onOff = 0;
 var timerId;
+var point;
+var points = document.getElementById('points'); 
 var cells = document.getElementsByClassName('cell'); //все ячейки поля
 var start = document.getElementById('start');
 start.addEventListener("click" , getStart)
@@ -23,6 +25,8 @@ start.addEventListener("click" , getStart)
 function getStart() {
     if(onOff == 0) {
         direction = 'right';
+        point = 0;
+        points.innerHTML = '0';
         snake_position[0] = [3, 4]; // вводим координаты тела змеи
         snake_position[1] = [4, 4]; // вводим координаты тела змеи
         snake_position[2] = [5, 4]; // вводим координаты тела змеи
@@ -63,7 +67,9 @@ function autoGo() {
             down();
         }
         cells[snake_position_number[0]].classList.remove('snake');
-        if(snake_position_first == apple_position) {
+        if(snake_position_first == apple_position) { //apple eat
+            point++;
+            points.innerHTML = point;
             cells[apple_position].classList.remove('apple');
             apple();
         } else {

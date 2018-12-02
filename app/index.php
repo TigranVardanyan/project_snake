@@ -3,6 +3,7 @@
 <?php require_once('head.php'); ?>
 <body>
 	<button id="start">start</button>
+	<span>Your points : </span><span id="points">0</span>
 	<div class="wrapper">
 		<div class="cell"></div>
 		<div class="cell"></div>
