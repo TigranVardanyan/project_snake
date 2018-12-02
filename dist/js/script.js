@@ -6,8 +6,14 @@ var xMax = 15; // длина поля
 var yMax = 8; // высота поля
 var snake_position_first_X; // позиция Х головы змеи
 var snake_position_first_Y; // позиция У головы змеи
+var snake_position_first; // позиция головы
 var snake_positionX // массив с позициями  Х частей змеи
 var snake_positionY // массив с позициями  У частей змеи
+var direction = 'right';
+var speed = 200;
+var apple_position;
+var apple_position_X;
+var apple_position_Y;
 snake_position[0] = [3, 4]; // вводим координаты тела змеи
 snake_position[1] = [4, 4]; // вводим координаты тела змеи
 snake_position[2] = [5, 4]; // вводим координаты тела змеи
@@ -16,57 +22,104 @@ snake_position[4] = [7, 4]; // вводим координаты тела зме
 snake_position[5] = [8, 4]; // вводим координаты тела змеи
 var cells = document.getElementsByClassName('cell'); //все ячейки поля
 for(var i = 0; i < snake_position.length; i++) { // от [0 , 5] 
-    snake_positionX = snake_position[i][0];
+    snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
     snake_positionY = snake_position[i][1];
-    var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
-    snake_position_number[i] = +positionNumber;
-    cells[snake_position_number[i]].classList.add('snake');
+    var positionNumber = +xMax*(snake_positionY-1)+snake_positionX; // считает номеропозицию каждой части
+    snake_position_number[i] = +positionNumber; // добовляем в массив
+    cells[snake_position_number[i]].classList.add('snake'); //каждому элементу массива добовляет класс снейк
+}
+var start = document.getElementById('start');
+start.addEventListener("click" , getStart)
+
+function getStart() {
+    autoGo();
+    apple();
 }
 
-function keyPress() {
-    for(var i = 0; i < snake_position.length; i++) {
-        var k = 0;
-        snake_positionX = snake_position[i][0];
-        snake_positionY = snake_position[i][1];
-        var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
-        for(var i = 0; i < snake_position.length; i++) {
-            var snake_positionX = snake_position[i][0];
-            var snake_positionY = snake_position[i][1];
-            var positionNumberTest = +xMax*(snake_positionY-1)+snake_positionX;
-            if(positionNumber == positionNumberTest) {
-                k++
-            }
-            if(k == 2) {
-                gameover();
-            }
+//авто ход
+function autoGo() {
+    setInterval(function() {
+        snake_position_first_X = snake_position[snake_position.length-1][0];
+        snake_position_first_Y = snake_position[snake_position.length-1][1];
+        snake_position_first = +xMax*(snake_position_first_Y-1)+snake_position_first_X;
+        if( direction == 'right') {
+            right();
+        }
+        if( direction == 'left') {
+            left();
+        }
+        if( direction == 'up') {
+            up();
+        }
+        if( direction == 'down') {
+            down();
+        }
+        cells[snake_position_number[0]].classList.remove('snake');
+        if(snake_position_first == apple_position) {
+            cells[apple_position].classList.remove('apple');
+            apple();
+        } else {
+            snake_position.shift();
+        }
+        for(var i = 0; i < snake_position.length; i++) { // от [0 , 5] 
+            snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
+            snake_positionY = snake_position[i][1];
+            var positionNumber = +xMax*(snake_positionY-1)+snake_positionX; // считает номеропозицию каждой части
+            snake_position_number[i] = +positionNumber; // добовляем в массив
+            cells[snake_position_number[i]].classList.add('snake'); //каждому элементу массива добовляет класс снейк
+        }
+        hannibal();
+    }, speed)
+}
+
+// яблоко 
+function apple() {
+    apple_position_X = Math.round(Math.random()*14);
+    apple_position_Y = Math.round(Math.random()*8+1);
+    apple_position = +xMax*(apple_position_Y-1)+apple_position_X;
+    for(var i = 0; i < snake_position_number.length; i++) {
+        var opt1 = snake_position_number[i];
+        if(apple_position == opt1) {
+            apple();
         }
     }
-    snake_position_first_X = snake_position[snake_position.length-1][0];
-    snake_position_first_Y = snake_position[snake_position.length-1][1];
-    var event = window.event;
-    if(event.keyCode == 37) {
-        left();
-    }
-    if(event.keyCode == 38) {
-        up();
-    }
-    if(event.keyCode == 39) {
-        right();
-    }
-    if(event.keyCode == 40) {
-        down();
-    }
-    cells[snake_position_number[0]].classList.remove('snake');
-    snake_position.shift();
-    for(var i = 0; i < snake_position.length; i++) {
-        snake_positionX = snake_position[i][0];
-        snake_positionY = snake_position[i][1];
-        var positionNumber = +xMax*(snake_positionY-1)+snake_positionX;
-        snake_position_number[i] = +positionNumber;
-        cells[snake_position_number[i]].classList.add('snake');
-    }
+    cells[apple_position].classList.add('apple');
 }
 
+// чтоб себя не кусал
+function hannibal() {
+    for(var i = 0; i < snake_position_number.length; i++) {
+        var k = 0;
+        var opt1 = snake_position_number[i];
+        for(var j = 0; j < snake_position_number.length; j++) {
+            var opt2 = snake_position_number[j];
+            if(opt1 == opt2) {
+                k++;
+            }
+        }   
+        if(k > 1) {
+            gameover();
+            break;
+        }
+    }
+}
+//обработчик стрелок
+function keyPress() {
+    var event = window.event;
+    if(event.keyCode == 37) {
+        direction = 'left';
+    }
+    if(event.keyCode == 38) {
+        direction = 'up';
+    }
+    if(event.keyCode == 39) {
+        direction = 'right';
+    }
+    if(event.keyCode == 40) {
+        direction = 'down';
+    }
+}
+//гейм овер
 function gameover() {
     alert("game over");
     for(var i = 0; i < snake_position.length; i++) {
@@ -74,7 +127,7 @@ function gameover() {
     }
     snake_position = [];
 }
-
+//движение змеи
 function down() {
     if(snake_position_first_Y == yMax+1) {
         gameover();
