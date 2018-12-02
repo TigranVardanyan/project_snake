@@ -10,7 +10,6 @@ var snake_position_first; // позиция головы
 var snake_positionX // массив с позициями  Х частей змеи
 var snake_positionY // массив с позициями  У частей змеи
 var direction = 'right';
-var lastDirection = direction;
 var speed = 200;
 var apple_position;
 var apple_position_X;
@@ -107,49 +106,17 @@ function hannibal() {
 //обработчик стрелок
 function keyPress() {
     var event = window.event;
-    if (event.keyCode == 37 && direction == 'right') {
-        setTimeout(function() {
-           direction = 'right'; 
-       }, speed+150);
-    } else {
-        if(event.keyCode == 37) {
-            setTimeout(function() {
-               direction = 'left'; 
-           }, speed+150);
-        }
+    if(event.keyCode == 37) {
+        direction = 'left';
     }
-    if (event.keyCode == 38 && direction == 'down') {
-        setTimeout(function() {
-           direction = 'down'; 
-       }, speed+150);
-    } else {
-        if(event.keyCode == 38) {
-            setTimeout(function() {
-               direction = 'up'; 
-           }, speed+150);    
-        }
+    if(event.keyCode == 38) {
+        direction = 'up';
     }
-    if (event.keyCode == 39 && direction == 'left') {
-        setTimeout(function() {
-           direction = 'left'; 
-       }, speed+150);
-    } else {
-        if(event.keyCode == 39) {
-            setTimeout(function() {
-               direction = 'right'; 
-           }, speed+150);
-        }
+    if(event.keyCode == 39) {
+        direction = 'right';
     }
-    if (event.keyCode == 40 && direction == 'up') {
-        setTimeout(function() {
-           direction = 'up'; 
-       }, speed+150);
-    } else {
-        if(event.keyCode == 40) {
-            setTimeout(function() {
-               direction = 'down'; 
-           }, speed+150);
-        }
+    if(event.keyCode == 40) {
+        direction = 'down';
     }
 }
 //гейм овер
@@ -160,8 +127,6 @@ function gameover() {
     }
     snake_position = [];
 }
-
-
 //движение змеи
 function down() {
     if(snake_position_first_Y == yMax+1) {
@@ -170,7 +135,6 @@ function down() {
     else {
         snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
     }
-    lastDirection = direction
 }
 function up() {
     if(snake_position_first_Y == 1) {
