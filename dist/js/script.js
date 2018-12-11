@@ -9,36 +9,60 @@ var snake_position_first_Y; // позиция У головы змеи
 var snake_position_first; // позиция головы
 var snake_positionX // массив с позициями  Х частей змеи
 var snake_positionY // массив с позициями  У частей змеи
-var direction = 'right';
-var speed = 200;
+var direction;
+var speed = 800;
+var rb1 = document.getElementById('radio1');
+var rb2 = document.getElementById('radio2'); 
+var rb3 = document.getElementById('radio3');
 var apple_position;
 var apple_position_X;
 var apple_position_Y;
-snake_position[0] = [3, 4]; // вводим координаты тела змеи
-snake_position[1] = [4, 4]; // вводим координаты тела змеи
-snake_position[2] = [5, 4]; // вводим координаты тела змеи
-snake_position[3] = [6, 4]; // вводим координаты тела змеи
-snake_position[4] = [7, 4]; // вводим координаты тела змеи
-snake_position[5] = [8, 4]; // вводим координаты тела змеи
+var onOff = 0;
+var timerId;
+var point;
+var points = document.getElementById('points'); 
 var cells = document.getElementsByClassName('cell'); //все ячейки поля
-for(var i = 0; i < snake_position.length; i++) { // от [0 , 5] 
-    snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
-    snake_positionY = snake_position[i][1];
-    var positionNumber = +xMax*(snake_positionY-1)+snake_positionX; // считает номеропозицию каждой части
-    snake_position_number[i] = +positionNumber; // добовляем в массив
-    cells[snake_position_number[i]].classList.add('snake'); //каждому элементу массива добовляет класс снейк
-}
 var start = document.getElementById('start');
 start.addEventListener("click" , getStart)
 
 function getStart() {
-    autoGo();
-    apple();
+    if(onOff == 0) {
+        if (rb1.checked) {
+            speed = rb1.value;
+        }
+        if (rb2.checked) {
+            speed = rb2.value;
+        }
+        if (rb3.checked) {
+            speed = rb3.value;
+        }
+        direction = 'right';
+        point = 0;
+        points.innerHTML = '0';
+        snake_position[0] = [3, 4]; // вводим координаты тела змеи
+        snake_position[1] = [4, 4]; // вводим координаты тела змеи
+        snake_position[2] = [5, 4]; // вводим координаты тела змеи
+        snake_position[3] = [6, 4]; // вводим координаты тела змеи
+        snake_position[4] = [7, 4]; // вводим координаты тела змеи
+        snake_position[5] = [8, 4]; // вводим координаты тела змеи
+        for(var i = 0; i < snake_position.length; i++) { // от [0 , 5] 
+        snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
+        snake_positionY = snake_position[i][1];
+        var positionNumber = +xMax*(snake_positionY-1)+snake_positionX; // считает номеропозицию каждой части
+        snake_position_number[i] = +positionNumber; // добовляем в массив
+        cells[snake_position_number[i]].classList.add('snake'); //каждому элементу массива добовляет класс снейк
+    }
+        autoGo();
+        apple();
+        onOff = 1;
+    } else {
+        onOff = 0;
+    }
 }
 
 //авто ход
 function autoGo() {
-    setInterval(function() {
+    timerId = setInterval(function() {
         snake_position_first_X = snake_position[snake_position.length-1][0];
         snake_position_first_Y = snake_position[snake_position.length-1][1];
         snake_position_first = +xMax*(snake_position_first_Y-1)+snake_position_first_X;
@@ -55,7 +79,9 @@ function autoGo() {
             down();
         }
         cells[snake_position_number[0]].classList.remove('snake');
-        if(snake_position_first == apple_position) {
+        if(snake_position_first == apple_position) { //apple eat
+            point++;
+            points.innerHTML = point;
             cells[apple_position].classList.remove('apple');
             apple();
         } else {
@@ -121,11 +147,22 @@ function keyPress() {
 }
 //гейм овер
 function gameover() {
-    alert("game over");
+    setTimeout(function() {
+      clearInterval(timerId);
+      alert( 'game over' );
+    }, 1);
+    cells[apple_position].classList.remove('apple');
     for(var i = 0; i < snake_position.length; i++) {
         cells[snake_position_number[i]].classList.remove('snake');
     }
     snake_position = [];
+    onOff = 0;
+    highScore.push(point);
+    showHighScore()
+}
+
+function showHighScore() {
+    var fir, sec, trd;
 }
 //движение змеи
 function down() {

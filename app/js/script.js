@@ -9,8 +9,11 @@ var snake_position_first_Y; // позиция У головы змеи
 var snake_position_first; // позиция головы
 var snake_positionX // массив с позициями  Х частей змеи
 var snake_positionY // массив с позициями  У частей змеи
-var direction ;
-var speed = 200;
+var direction;
+var speed = 800;
+var rb1 = document.getElementById('radio1');
+var rb2 = document.getElementById('radio2'); 
+var rb3 = document.getElementById('radio3');
 var apple_position;
 var apple_position_X;
 var apple_position_Y;
@@ -24,6 +27,15 @@ start.addEventListener("click" , getStart)
 
 function getStart() {
     if(onOff == 0) {
+        if (rb1.checked) {
+            speed = rb1.value;
+        }
+        if (rb2.checked) {
+            speed = rb2.value;
+        }
+        if (rb3.checked) {
+            speed = rb3.value;
+        }
         direction = 'right';
         point = 0;
         points.innerHTML = '0';
@@ -145,6 +157,12 @@ function gameover() {
     }
     snake_position = [];
     onOff = 0;
+    highScore.push(point);
+    showHighScore()
+}
+
+function showHighScore() {
+    var fir, sec, trd;
 }
 //движение змеи
 function down() {
