@@ -4,7 +4,8 @@
   grid-template-rows: repeat(9, 50px); }
   .wrapper .cell {
     border: 1px solid black;
-    margin: 2px; }
+    margin: 2px;
+    height: 45px; }
 
 #test {
   background-color: #af3; }

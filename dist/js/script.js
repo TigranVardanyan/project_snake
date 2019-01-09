@@ -25,6 +25,14 @@ var cells = document.getElementsByClassName('cell'); //все ячейки по�
 var start = document.getElementById('start');
 start.addEventListener("click" , getStart)
 
+
+function soundClick() {
+  var audio = new Audio(); // Создаём новый элемент Audio
+  audio.src = 'hb17.wav'; // Указываем путь к звуку "клика"
+  audio.autoplay = true; // Автоматически запускаем
+}
+
+
 function getStart() {
     if(onOff == 0) {
         if (rb1.checked) {
@@ -79,14 +87,7 @@ function autoGo() {
             down();
         }
         cells[snake_position_number[0]].classList.remove('snake');
-        if(snake_position_first == apple_position) { //apple eat
-            point++;
-            points.innerHTML = point;
-            cells[apple_position].classList.remove('apple');
-            apple();
-        } else {
-            snake_position.shift();
-        }
+        
         for(var i = 0; i < snake_position.length; i++) { // от [0 , 5] 
             snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
             snake_positionY = snake_position[i][1];
@@ -95,6 +96,7 @@ function autoGo() {
             cells[snake_position_number[i]].classList.add('snake'); //каждому элементу массива добовляет класс снейк
         }
         hannibal();
+
     }, speed)
 }
 
@@ -171,6 +173,15 @@ function down() {
     } 
     else {
         snake_position.push([snake_position_first_X , snake_position_first_Y+1]);
+        if(snake_position_first == apple_position) { //apple eat
+            soundClick();
+            point++;
+            points.innerHTML = point;
+            cells[apple_position].classList.remove('apple');
+            apple();
+        } else {
+            snake_position.shift();
+        }
     }
 }
 function up() {
@@ -179,6 +190,15 @@ function up() {
     }
     else {
         snake_position.push([snake_position_first_X , snake_position_first_Y-1]);
+        if(snake_position_first == apple_position) { //apple eat
+            soundClick();
+            point++;
+            points.innerHTML = point;
+            cells[apple_position].classList.remove('apple');
+            apple();
+        } else {
+            snake_position.shift();
+        }
     }
 }
 function right() {
@@ -187,6 +207,15 @@ function right() {
     }
     else {
         snake_position.push([snake_position_first_X+1 , snake_position_first_Y]);
+        if(snake_position_first == apple_position) { //apple eat
+            soundClick();
+            point++;
+            points.innerHTML = point;
+            cells[apple_position].classList.remove('apple');
+            apple();
+        } else {
+            snake_position.shift();
+        }
     }
 }
 function left() {
@@ -195,5 +224,14 @@ function left() {
     }
     else {
         snake_position.push([snake_position_first_X-1 , snake_position_first_Y]);
+        if(snake_position_first == apple_position) { //apple eat
+            soundClick();
+            point++;
+            points.innerHTML = point;
+            cells[apple_position].classList.remove('apple');
+            apple();
+        } else {
+            snake_position.shift();
+        }
     }
 }

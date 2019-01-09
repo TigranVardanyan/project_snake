@@ -13,8 +13,8 @@
 	<meta name="description" content="">
 	<meta name="author" content="Tigran Vardanyan">
 
-	<!--  -->
-
+	<!-- Bootstrap grid -->
+	<link rel="stylesheet" href="libs/bootstrap-grid.min.css">
 	<!--  -->
 
 	<!-- user CSS -->
