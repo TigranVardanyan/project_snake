@@ -5,10 +5,32 @@
   margin: 0;
   padding: 0; }
 
+body {
+  width: 320px;
+  height: 568px; }
+
+.control-panel {
+  padding: 25px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(8, 40px);
-  grid-template-rows: repeat(14, 40px);
   background-image: url("../img/bg.png");
   background-repeat: repeat;
   background-color: transparent; }
@@ -42,3 +64,7 @@
 
 .apple {
   background-color: green; }
+
+/* rewrite bootstrap */
+.custom-control-label {
+  width: 100%; }
