@@ -330,5 +330,6 @@
 
 <!-- user scripts -->
 <script type="text/babel" src="js/script.js"></script>
+<script type="text/babel" src="js/game.js"></script>
 </body>
 </html>

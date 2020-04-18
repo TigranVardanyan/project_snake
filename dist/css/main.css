@@ -1,11 +1,55 @@
+:root {
+  --apple-green: #8db600; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  width: 320px;
+  height: 568px; }
+
+.control-panel {
+  padding: 25px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(15, 50px);
-  grid-template-rows: repeat(9, 50px); }
+  grid-template-columns: repeat(8, 40px);
+  background-image: url("../img/bg.png");
+  background-repeat: repeat;
+  background-color: transparent; }
   .wrapper .cell {
-    border: 1px solid black;
-    margin: 2px;
-    height: 45px; }
+    height: 40px;
+    text-align: center;
+    color: var(--apple-green); }
+    .wrapper .cell.sneak-body {
+      background-image: url("../img/sprite.png");
+      background-position: -40px 0px; }
+    .wrapper .cell.sneak-tail {
+      background-image: url("../img/sprite.png");
+      background-position: 0px 0px; }
+    .wrapper .cell.sneak-head {
+      background-image: url("../img/sprite.png");
+      background-position: 40px -40px; }
+    .wrapper .cell.cherry {
+      background-image: url("../img/sprite.png");
+      background-position: 0px -40px; }
 
 #test {
   background-color: #af3; }
@@ -20,3 +64,7 @@
 
 .apple {
   background-color: green; }
+
+/* rewrite bootstrap */
+.custom-control-label {
+  width: 100%; }
