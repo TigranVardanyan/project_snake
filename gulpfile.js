@@ -42,7 +42,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('code', function() {
-	return gulp.src('app/*.html')
+	return gulp.src('app/*.+(html | php)')
 		.pipe(browserSync.reload({ stream: true }))
 });
 
