@@ -42,7 +42,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('code', function() {
-	return gulp.src('app/*.+(html | php)')
+	return gulp.src('app/*.+(html|php)')
 		.pipe(browserSync.reload({ stream: true }))
 });
 
@@ -60,13 +60,13 @@ gulp.task('clean', async function() {
 
 gulp.task('img', function() {
 	return gulp.src('app/img/**/*') // Берем все изображения из app
-		.pipe(cache(imagemin({ // С кешированием
-			// .pipe(imagemin({ // Сжимаем изображения без кеширования
-			interlaced: true,
-			progressive: true,
-			svgoPlugins: [{removeViewBox: false}],
-			use: [pngquant()]
-		}))/**/)
+		// .pipe(cache(imagemin({ // С кешированием
+		// 	.pipe(imagemin({ // Сжимаем изображения без кеширования
+		// 	interlaced: true,
+		// 	progressive: true,
+		// 	svgoPlugins: [{removeViewBox: false}],
+		// 	use: [pngquant()]
+		// }))/*)*/
 		.pipe(gulp.dest('dist/img')); // Выгружаем на продакшен
 });
 
@@ -83,7 +83,7 @@ gulp.task('prebuild', async function() {
 	var buildJs = gulp.src('app/js/**/*') // Переносим скрипты в продакшен
 		.pipe(gulp.dest('dist/js'))
 
-	var buildHtml = gulp.src('app/*.html') // Переносим HTML в продакшен
+	var buildHtml = gulp.src('app/*.+(html|php)') // Переносим HTML в продакшен
 		.pipe(gulp.dest('dist'));
 
 });

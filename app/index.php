@@ -2,9 +2,9 @@
 <html lang="en">
 <?php require_once('head.php'); ?>
 <body>
-
+<div id="points"></div>
 <div class="control-panel">
-  <button class="btn btn-primary" id="play" type="button" data-toggle="collapse">
+  <button class="btn btn-primary" id="start" type="button" data-toggle="collapse">
     <i class="fas fa-play"></i>
   </button>
   <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#control-settings"
@@ -24,25 +24,25 @@
           <li class="list-group-item active">Sneak speed</li>
           <li class="list-group-item ">
             <div class="custom-control custom-radio">
-              <input name="radionBTN" value="150" type="radio" id="radio1" class="custom-control-input">
+              <input name="radionBTN" value="1000" type="radio" id="radio1" class="custom-control-input">
               <label for="radio1" class="custom-control-label">Slowpoke</label>
             </div>
           </li>
           <li class="list-group-item ">
             <div class="custom-control custom-radio">
-              <input name="radionBTN" value="350" type="radio" checked id="radio2" class="custom-control-input">
+              <input name="radionBTN" value="1000" type="radio" checked id="radio2" class="custom-control-input">
               <label for="radio2" class="custom-control-label">Junior</label>
             </div>
           </li>
           <li class="list-group-item ">
             <div class="custom-control custom-radio">
-              <input name="radionBTN" value="500" type="radio" id="radio3" class="custom-control-input">
+              <input name="radionBTN" value="1000" type="radio" id="radio3" class="custom-control-input">
               <label for="radio3" class="custom-control-label">Gamer</label>
             </div>
           </li>
           <li class="list-group-item ">
             <div class="custom-control custom-radio">
-              <input name="radionBTN" value="650" type="radio" id="radio4" class="custom-control-input">
+              <input name="radionBTN" value="1000" type="radio" id="radio4" class="custom-control-input">
               <label for="radio4" class="custom-control-label">Hero</label>
             </div>
           </li>
@@ -214,7 +214,7 @@
   </div>
 </div>
 
-<div class="wrapper">
+<div class="wrapper" id="gameWrapper">
   <div class="cell"></div>
   <div class="cell"></div>
   <div class="cell"></div>
@@ -222,17 +222,15 @@
   <div class="cell"></div>
   <div class="cell"></div>
   <div class="cell"></div>
-  <div class="cell">
-  </div>
-  <div class="cell"></div>
-  <div class="cell sneak-tail"></div>
-  <div class="cell sneak-body">
-  </div>
-  <div class="cell sneak-head"></div>
   <div class="cell"></div>
   <div class="cell"></div>
   <div class="cell"></div>
-  <div class="cell cherry"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
+  <div class="cell"></div>
   <div class="cell"></div>
   <div class="cell"></div>
   <div class="cell"></div>

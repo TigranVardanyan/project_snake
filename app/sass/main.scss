@@ -26,23 +26,31 @@ body {
     height: 40px;
     text-align: center;
     color: var(--apple-green);
+    border: 1px solid blue;
 
     &.sneak-body {
-      background-image: url("../img/sprite.png");
-      background-position: -40px 0px;
+      //background-image: url("../img/sprite.png");
+      //background-position: -40px 0px;
+      background-color: green;
     }
 
     &.sneak-tail {
-      background-image: url("../img/sprite.png");
-      background-position: 0px 0px;
+      //background-image: url("../img/sprite.png");
+      //background-position: 0px 0px;
     }
     &.sneak-head {
-      background-image: url("../img/sprite.png");
-      background-position: 40px -40px;
+      //background-image: url("../img/sprite.png");
+      //background-position: 40px -40px;
     }
     &.cherry {
-      background-image: url("../img/sprite.png");
-      background-position: 0px -40px;
+      //background-image: url("../img/sprite.png");
+      //background-position: 0px -40px;
+      background-color: red;
+    }
+    &.egg {
+      //background-image: url("../img/sprite.png");
+      //background-position: 0px -40px;
+      background-color: #FBFFB4;
     }
   }
 }

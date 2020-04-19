@@ -37,19 +37,14 @@ body {
   .wrapper .cell {
     height: 40px;
     text-align: center;
-    color: var(--apple-green); }
+    color: var(--apple-green);
+    border: 1px solid blue; }
     .wrapper .cell.sneak-body {
-      background-image: url("../img/sprite.png");
-      background-position: -40px 0px; }
-    .wrapper .cell.sneak-tail {
-      background-image: url("../img/sprite.png");
-      background-position: 0px 0px; }
-    .wrapper .cell.sneak-head {
-      background-image: url("../img/sprite.png");
-      background-position: 40px -40px; }
+      background-color: green; }
     .wrapper .cell.cherry {
-      background-image: url("../img/sprite.png");
-      background-position: 0px -40px; }
+      background-color: red; }
+    .wrapper .cell.egg {
+      background-color: #FBFFB4; }
 
 #test {
   background-color: #af3; }
