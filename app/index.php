@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once('head.php'); ?>
+<?php
+try{
+//  $sth = $dbh->prepare("SELECT name, colour FROM fruit");
+//  $sth->execute();
+  $sql = $conn->prepare("SELECT * FROM highscore ORDER BY score DESC LIMIT 5");
+  $sql->execute();
+  $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+  print_r($result);
+  echo "Read from db successfully";
+} catch (PDOException $e) {
+  echo $e;
+}
+?>
 <body>
 <div id="points"></div>
 <div class="control-panel">
-  <button class="btn btn-primary" id="start" type="button" data-toggle="collapse">
+  <button class="btn btn-primary" id="btn-start">
     <i class="fas fa-play"></i>
   </button>
-  <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#control-settings"
-          aria-expanded="false" aria-controls="control-settings">
+  <button class="btn btn-success" id="btn-settings">
     <i class="fas fa-cog"></i>
   </button>
-  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#control-info" aria-expanded="false"
-          aria-controls="control-info">
+  <button class="btn btn-info" id="btn-info">
     <i class="fas fa-trophy"></i>
   </button>
 </div>
 <div class="accordion" id="accordion">
-  <div class="collapse" data-parent="#accordion" id="control-settings">
+  <div class="collapse" id="control-game">
+    <div class="wrapper" id="gameWrapper"></div>
+  </div>
+  <div class="collapse"  id="control-settings">
     <div class="card card-body">
       <div class="snake-speed card-1">
         <ul class="list-group">
@@ -67,23 +81,17 @@
       </div>
     </div>
   </div>
-  <div class="collapse" data-parent="#accordion" id="control-info">
-    <!--  <div class="card card-body">-->
-    <!--    <span>Your points : </span><span id="points">0</span> |-->
-    <!--    <span>High score : </span><span id="points">0</span> | <span id="points">0</span> | <span id="points">0</span>-->
-    <!--  </div>-->
-    <div class="accordion" id="accordionExample">
+  <div class="collapse"  id="control-info">
+    <div class="accordion">
       <div class="card">
         <div class="card-header" id="headingOne">
           <h2 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
+            <button class="btn btn-link" type="button" >
               Slowpoke
             </button>
           </h2>
         </div>
-
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div id="collapseOne" >
           <table class="table">
             <thead>
             <tr>
@@ -93,16 +101,9 @@
             </thead>
             <tbody>
             <tr>
-              <th scope="row">1</th>
-              <td>45</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>23</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>14</td>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
             </tr>
             </tbody>
           </table>
@@ -111,100 +112,25 @@
       <div class="card">
         <div class="card-header" id="headingTwo">
           <h2 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="false" aria-controls="collapseTwo">
-              Junior
+            <button class="btn btn-link collapsed" >
+              Global highscore
             </button>
           </h2>
         </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div id="collapseTwo">
           <table class="table">
             <thead>
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Name</th>
               <th scope="col">Points</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <th scope="row">1</th>
-              <td>45</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>23</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>14</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingThree">
-          <h2 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseOne">
-              Gamer
-            </button>
-          </h2>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Points</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>45</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>23</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>14</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingFour">
-          <h2 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour"
-                    aria-expanded="false" aria-controls="collapseTwo">
-              Hero
-            </button>
-          </h2>
-        </div>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Points</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>45</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>23</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>14</td>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
             </tr>
             </tbody>
           </table>
@@ -214,111 +140,14 @@
   </div>
 </div>
 
-<div class="wrapper" id="gameWrapper">
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-  <div class="cell"></div>
-</div>
 
 <!-- Babel -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script
+    src="https://code.jquery.com/jquery-3.5.0.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+    crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>

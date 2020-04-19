@@ -8,6 +8,7 @@
 body {
   width: 320px;
   height: 568px;
+  margin: 0 auto;
 }
 .control-panel {
   padding: 25px;
@@ -18,27 +19,27 @@ body {
 }
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(8, 40px);
+  grid-template-columns: repeat(16, 20px);
   background-image: url("../img/bg.png");
   background-repeat: repeat;
   background-color: transparent;
   .cell {
-    height: 40px;
+    height: 20px;
     text-align: center;
     color: var(--apple-green);
-    border: 1px solid blue;
 
-    &.sneak-body {
+    &.snake-body {
       //background-image: url("../img/sprite.png");
       //background-position: -40px 0px;
       background-color: green;
+      z-index: 99;
     }
 
-    &.sneak-tail {
+    &.snake-tail {
       //background-image: url("../img/sprite.png");
       //background-position: 0px 0px;
     }
-    &.sneak-head {
+    &.snake-head {
       //background-image: url("../img/sprite.png");
       //background-position: 40px -40px;
     }

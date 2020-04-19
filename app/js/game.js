@@ -5,20 +5,24 @@ class Game {
     this.containerWidth = containerWidth;
     this.containerHeight = containerHeight;
   }
+
   Start() {
   };
 }
-function startSound() {
-  let audioStart = new Audio(); // new audio
-  audioStart.src = 'startSound.wav'; // file path
-  audioStart.autoplay = true; // auto play
-}
 
-function dieSound() {
-  let audioStart = new Audio(); // new audio
-  audioStart.src = 'DieSound.wav'; // file path
-  audioStart.autoplay = true; // auto play
-}
+//soundtrack
+let soundtrack = new Audio(); // new audio
+soundtrack.src = 'playback.wav'; // file path
+soundtrack.loop = true; // loop
+
+//die sound
+let dieSound = new Audio(); // new audio
+dieSound.src = 'DieSound.wav'; // file path
+
+//bite sound
+let biteSound = new Audio(); // Создаём новый элемент Audio
+biteSound.src = 'bite.wav'; // Указываем путь к звуку "клика"
+
 
 let g = new Game();
 //
@@ -85,9 +89,9 @@ gameWrapper.addEventListener('touchend', function (event) {
   let xTouchAbs = Math.abs(xTouch);
   let yTouchAbs = Math.abs(yTouch);
   if (xTouchAbs > yTouchAbs) {
-    if (xTouch < 0) {
+    if (xTouch > 0) {
       direction = 'right';
-    } else if (xTouch > 0) {
+    } else if (xTouch < 0) {
       direction = 'left';
     }
   } else if (yTouchAbs > xTouchAbs) {
@@ -110,8 +114,13 @@ gameWrapper.addEventListener('touchend', function (event) {
 document.onkeydown = keyPress; // при спуске клавишы в документе выполнить keyPress
 var snake_position = []; //массив с координатами частей  змейки
 var snake_position_number = []; //массив с номеропозицией частей змейки
-var xMax = 8; // длина поля
-var yMax = 12; // высота поля
+var xMax = 16; // длина поля
+var yMax = 24; // высота поля
+let cellsHTML = "";
+for(let i = 0; i < xMax * yMax; i ++) {
+  cellsHTML += `<div class="cell"></div>`
+}
+gameWrapper.innerHTML = cellsHTML;
 var snake_position_first_X; // позиция Х головы змеи
 var snake_position_first_Y; // позиция У головы змеи
 var snake_position_first; // позиция головы
@@ -130,22 +139,21 @@ var onOff = 0;
 var timerId;
 var point;
 var points = document.getElementById('points');
-var cells = document.getElementsByClassName('cell'); //все ячейки поля
-var start = document.getElementById('start');
-start.addEventListener("click", getStart)
+var cells = document.getElementsByClassName('cell');
+
+var start = document.getElementById('btn-start');
+start.addEventListener("click", ()=> {
+  getStart();
+})
 
 
-function soundClick() {
-  var audio = new Audio(); // Создаём новый элемент Audio
-  audio.src = 'bite.wav'; // Указываем путь к звуку "клика"
-  audio.autoplay = true; // Автоматически запускаем
-}
 
 
 function getStart() {
   if (onOff == 0) {
     onOff = 1;
-    startSound();
+    start.innerHTML = `<i class="fas fa-stop"></i>`;
+    soundtrack.play();
     if (rb1.checked) {
       speed = rb1.value;
     } else if (rb2.checked) {
@@ -164,12 +172,14 @@ function getStart() {
       snake_positionY = snake_position[i][1];
       var positionNumber = +xMax * (snake_positionY - 1) + snake_positionX; // считает номеропозицию каждой части
       snake_position_number[i] = +positionNumber; // добовляем в массив
-      cells[snake_position_number[i]].classList.add('sneak-body'); //каждому элементу массива добовляет класс снейк
+      cells[snake_position_number[i]].classList.add('snake-body'); //каждому элементу массива добовляет класс снейк
     }
     autoGo();
     apple();
   } else {
     onOff = 0;
+    start.innerHTML = `<i class="fas fa-play"></i>`;
+    gameover();
   }
 }
 
@@ -192,14 +202,14 @@ function autoGo() {
     if (direction == 'down') {
       down();
     }
-    cells[snake_position_number[0]].classList.remove('sneak-body');
+    cells[snake_position_number[0]].classList.remove('snake-body');
 
     for (var i = 0; i < snake_position.length; i++) { // от [0 , 5]
       snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
       snake_positionY = snake_position[i][1];
       var positionNumber = +xMax * (snake_positionY - 1) + snake_positionX; // считает номеропозицию каждой части
       snake_position_number[i] = +positionNumber; // добовляем в массив
-      cells[snake_position_number[i]].classList.add('sneak-body'); //каждому элементу массива добовляет класс снейк
+      cells[snake_position_number[i]].classList.add('snake-body'); //каждому элементу массива добовляет класс снейк
     }
 
   }, speed)
@@ -209,7 +219,12 @@ function autoGo() {
 function apple() {
   apple_position_X = Math.round(Math.random() * (xMax - 1));
   apple_position_Y = Math.round(Math.random() * (yMax - 1));
-  apple_position = +xMax * (apple_position_Y - 1) + apple_position_X;
+  apple_position = +xMax * (apple_position_Y+1) + apple_position_X+1;
+  console.group("x / y / pos number")
+  console.log(apple_position_X)
+  console.log(apple_position_Y)
+  console.log(apple_position)
+  console.groupEnd()
   for (var i = 0; i < snake_position_number.length; i++) {
     var opt1 = snake_position_number[i];
     if (apple_position == opt1) {
@@ -266,11 +281,14 @@ function keyPress() {
 function gameover() {
   setTimeout(function () {
     clearInterval(timerId);
-    dieSound();
+    soundtrack.pause();
+    start.innerHTML = `<i class="fas fa-play"></i>`;
+    dieSound.play();
+    $.post("write_highscore.php", {name: "Tigran", score: point});
   }, 1);
-  cells[apple_position].classList.remove('apple');
+  cells[apple_position].classList.remove('apple', 'cherry', 'egg');
   for (var i = 0; i < snake_position.length; i++) {
-    cells[snake_position_number[i]].classList.remove('snake');
+    cells[snake_position_number[i]].classList.remove('snake-body');
   }
   snake_position = [];
   onOff = 0;
@@ -288,7 +306,7 @@ function down() {
   } else {
     snake_position.push([snake_position_first_X, snake_position_first_Y + 1]);
     if (snake_position_first == apple_position) { //apple eat
-      soundClick();
+      biteSound.play();
       point++;
       points.innerHTML = point;
       cells[apple_position].classList.remove('cherry', 'egg', 'apple');
@@ -305,7 +323,7 @@ function up() {
   } else {
     snake_position.push([snake_position_first_X, snake_position_first_Y - 1]);
     if (snake_position_first == apple_position) { //apple eat
-      soundClick();
+      biteSound.play();
       point++;
       points.innerHTML = point;
       cells[apple_position].classList.remove('cherry', 'egg', 'apple');
@@ -322,7 +340,7 @@ function right() {
   } else {
     snake_position.push([snake_position_first_X + 1, snake_position_first_Y]);
     if (snake_position_first == apple_position) { //apple eat
-      soundClick();
+      biteSound.play();
       point++;
       points.innerHTML = point;
       cells[apple_position].classList.remove('cherry', 'egg', 'apple');
@@ -339,7 +357,7 @@ function left() {
   } else {
     snake_position.push([snake_position_first_X - 1, snake_position_first_Y]);
     if (snake_position_first == apple_position) { //apple eat
-      soundClick();
+      biteSound.play();
       point++;
       points.innerHTML = point;
       cells[apple_position].classList.remove('cherry', 'egg', 'apple');

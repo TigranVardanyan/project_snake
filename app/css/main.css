@@ -7,7 +7,8 @@
 
 body {
   width: 320px;
-  height: 568px; }
+  height: 568px;
+  margin: 0 auto; }
 
 .control-panel {
   padding: 25px;
@@ -30,17 +31,17 @@ body {
 
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(8, 40px);
+  grid-template-columns: repeat(16, 20px);
   background-image: url("../img/bg.png");
   background-repeat: repeat;
   background-color: transparent; }
   .wrapper .cell {
-    height: 40px;
+    height: 20px;
     text-align: center;
-    color: var(--apple-green);
-    border: 1px solid blue; }
-    .wrapper .cell.sneak-body {
-      background-color: green; }
+    color: var(--apple-green); }
+    .wrapper .cell.snake-body {
+      background-color: green;
+      z-index: 99; }
     .wrapper .cell.cherry {
       background-image: url("../img/sprite.png");
       background-position: 0px -40px; }
