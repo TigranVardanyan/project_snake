@@ -42,7 +42,8 @@ body {
     .wrapper .cell.sneak-body {
       background-color: green; }
     .wrapper .cell.cherry {
-      background-color: red; }
+      background-image: url("../img/sprite.png");
+      background-position: 0px -40px; }
     .wrapper .cell.egg {
       background-color: #FBFFB4; }
 

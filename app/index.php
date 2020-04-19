@@ -24,25 +24,25 @@
           <li class="list-group-item active">Sneak speed</li>
           <li class="list-group-item ">
             <div class="custom-control custom-radio">
-              <input name="radionBTN" value="1000" type="radio" id="radio1" class="custom-control-input">
+              <input name="radionBTN" value="500" type="radio" id="radio1" class="custom-control-input">
               <label for="radio1" class="custom-control-label">Slowpoke</label>
             </div>
           </li>
           <li class="list-group-item ">
             <div class="custom-control custom-radio">
-              <input name="radionBTN" value="1000" type="radio" checked id="radio2" class="custom-control-input">
+              <input name="radionBTN" value="350" type="radio" checked id="radio2" class="custom-control-input">
               <label for="radio2" class="custom-control-label">Junior</label>
             </div>
           </li>
           <li class="list-group-item ">
             <div class="custom-control custom-radio">
-              <input name="radionBTN" value="1000" type="radio" id="radio3" class="custom-control-input">
+              <input name="radionBTN" value="200" type="radio" id="radio3" class="custom-control-input">
               <label for="radio3" class="custom-control-label">Gamer</label>
             </div>
           </li>
           <li class="list-group-item ">
             <div class="custom-control custom-radio">
-              <input name="radionBTN" value="1000" type="radio" id="radio4" class="custom-control-input">
+              <input name="radionBTN" value="100" type="radio" id="radio4" class="custom-control-input">
               <label for="radio4" class="custom-control-label">Hero</label>
             </div>
           </li>
