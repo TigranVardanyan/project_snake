@@ -44,7 +44,7 @@ body {
       z-index: 99; }
     .wrapper .cell.cherry {
       background-image: url("../img/sprite.png");
-      background-position: 0px -40px; }
+      background-position: 0px -20px; }
     .wrapper .cell.egg {
       background-color: #FBFFB4; }
 

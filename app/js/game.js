@@ -88,6 +88,10 @@ gameWrapper.addEventListener('touchend', function (event) {
   let yTouch = finalPoint.pageY - initialPoint.pageY;
   let xTouchAbs = Math.abs(xTouch);
   let yTouchAbs = Math.abs(yTouch);
+  console.log('xTouch',xTouch)
+  console.log('yTouch',yTouch)
+  console.log('xTouchAbs',xTouchAbs)
+  console.log('yTouchAbs',yTouchAbs)
   if (xTouchAbs > yTouchAbs) {
     if (xTouch > 0) {
       direction = 'right';
@@ -140,19 +144,43 @@ var timerId;
 var point;
 var points = document.getElementById('points');
 var cells = document.getElementsByClassName('cell');
+let highscore;
+if (localStorage.getItem('highscore')) {
+  highscore = JSON.parse(localStorage.getItem('highscore'));
+} else {
+  highscore = [];
+  localStorage.setItem('highscore', JSON.stringify(highscore));
+}
 
+let userName;
+if (localStorage.getItem('userName')) {
+  userName = localStorage.getItem('userName');
+  $('#userName').val(userName);
+} else {
+  userName = "Mystery user";
+  $('#userName').val(userName);
+}
 var start = document.getElementById('btn-start');
 start.addEventListener("click", ()=> {
   getStart();
 })
 
+$('#userName').focusout(() => {
+  localStorage.setItem('userName', $('#userName').val());
+userName = localStorage.getItem('userName');
+})
 
 
+let name;
 
 function getStart() {
   if (onOff == 0) {
     onOff = 1;
+    userName = $('#userName').val();
     start.innerHTML = `<i class="fas fa-stop"></i>`;
+    if (typeof dieSound === 'function') {
+      dieSound.stop()
+    }
     soundtrack.play();
     if (rb1.checked) {
       speed = rb1.value;
@@ -284,14 +312,18 @@ function gameover() {
     soundtrack.pause();
     start.innerHTML = `<i class="fas fa-play"></i>`;
     dieSound.play();
-    $.post("write_highscore.php", {name: "Tigran", score: point});
+    $.post("write_highscore.php", {name: userName, score: point});
+    highscore.push(point);
+    localStorage.setItem("highscore", JSON.stringify(highscore))
   }, 1);
   cells[apple_position].classList.remove('apple', 'cherry', 'egg');
   for (var i = 0; i < snake_position.length; i++) {
     cells[snake_position_number[i]].classList.remove('snake-body');
   }
   snake_position = [];
+  snake_position_number = [];
   onOff = 0;
+
   // highScore.push(point);
   // showHighScore()
 }

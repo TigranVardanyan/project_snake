@@ -10,16 +10,12 @@ if (isset($_POST['score'])) {
 } else {
   $user_score = 0;
 }
-
-
-
 $table = 'highscore';
 
 try{
   $sql = "INSERT INTO  highscore  (name, score)
     VALUES ('$user_name', '$user_score')";
   $conn->exec($sql);
-  echo "New record created successfully";
 } catch (PDOException $e) {
   echo $e;
 }

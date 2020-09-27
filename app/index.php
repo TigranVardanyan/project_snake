@@ -3,13 +3,9 @@
 <?php require_once('head.php'); ?>
 <?php
 try{
-//  $sth = $dbh->prepare("SELECT name, colour FROM fruit");
-//  $sth->execute();
   $sql = $conn->prepare("SELECT * FROM highscore ORDER BY score DESC LIMIT 5");
   $sql->execute();
   $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-  print_r($result);
-  echo "Read from db successfully";
 } catch (PDOException $e) {
   echo $e;
 }
@@ -33,6 +29,15 @@ try{
   </div>
   <div class="collapse"  id="control-settings">
     <div class="card card-body">
+      <div class="snake-speed card-1">
+        <ul class="list-group">
+          <li class="list-group-item active">Enter your name</li>
+          <li class="list-group-item">
+            <input id="userName" type="text" class="form-control" value="">
+          </li>
+        </ul>
+
+      </div>
       <div class="snake-speed card-1">
         <ul class="list-group">
           <li class="list-group-item active">Sneak speed</li>
@@ -87,7 +92,7 @@ try{
         <div class="card-header" id="headingOne">
           <h2 class="mb-0">
             <button class="btn btn-link" type="button" >
-              Slowpoke
+              Local highscore
             </button>
           </h2>
         </div>
@@ -99,12 +104,22 @@ try{
               <th scope="col">Points</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-            </tr>
+            <tbody id="localHigscoreList">
+            <script>
+              let localHigscoreList = document.getElementById('localHigscoreList');
+              let localHighscoreTop = JSON.parse(localStorage.getItem('highscore')).sort(function(a, b) {
+                return a - b;
+              }).reverse();
+              let highscoreHTML = '';
+              for(let i = 0; i < 5; i++) {
+                highscoreHTML += `<tr>
+                                    <th scope="row">${i+1}</th>
+                                    <td scope="col">${localHighscoreTop[i] ? localHighscoreTop[i] : 0 }</td>
+                                  </tr>`;
+              }
+              localHigscoreList.innerHTML = highscoreHTML;
+            </script>
+
             </tbody>
           </table>
         </div>
@@ -121,17 +136,24 @@ try{
           <table class="table">
             <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Points</th>
+              <th scope="row">#</th>
+              <th scope="row">Name</th>
+              <th scope="row">Point</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-            </tr>
+            <?php
+            for ($i = 0; $i < count($result); $i++) {
+              ?>
+              <tr>
+                <th scope="col"><?php echo $i+1 ?></th>
+                <td scope="col"><?php echo $result[$i]["name"] ?></td>
+                <td scope="col"><?php echo $result[$i]["score"] ?></td>
+              </tr>
+              <?php
+            }
+            ?>
+
             </tbody>
           </table>
         </div>

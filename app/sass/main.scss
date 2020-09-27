@@ -30,27 +30,27 @@ body {
 
     &.snake-body {
       //background-image: url("../img/sprite.png");
-      //background-position: -40px 0px;
+      //background-position: -20px 0px;
       background-color: green;
       z-index: 99;
     }
 
     &.snake-tail {
-      //background-image: url("../img/sprite.png");
-      //background-position: 0px 0px;
+      background-image: url("../img/sprite.png");
+      background-position: 0px 0px;
     }
     &.snake-head {
-      //background-image: url("../img/sprite.png");
-      //background-position: 40px -40px;
+      background-image: url("../img/sprite.png");
+      background-position: 20px -20px;
     }
     &.cherry {
       background-image: url("../img/sprite.png");
-      background-position: 0px -40px;
+      background-position: 0px -20px;
       //background-color: red;
     }
     &.egg {
       //background-image: url("../img/sprite.png");
-      //background-position: 0px -40px;
+      //background-position: 0px -20px;
       background-color: #FBFFB4;
     }
   }
