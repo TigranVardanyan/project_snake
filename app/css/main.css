@@ -29,31 +29,6 @@ body {
       -ms-flex-direction: row;
           flex-direction: row; }
 
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(16, 20px);
-  background-image: url("../img/bg.png");
-  background-repeat: repeat;
-  background-color: transparent; }
-  .wrapper .cell {
-    height: 20px;
-    text-align: center;
-    color: var(--apple-green); }
-    .wrapper .cell.snake-body {
-      background-color: green;
-      z-index: 99; }
-    .wrapper .cell.snake-tail {
-      background-image: url("../img/sprite.png");
-      background-position: 0px 0px; }
-    .wrapper .cell.snake-head {
-      background-image: url("../img/sprite.png");
-      background-position: 20px -20px; }
-    .wrapper .cell.cherry {
-      background-image: url("../img/sprite.png");
-      background-position: 0px -20px; }
-    .wrapper .cell.egg {
-      background-color: #FBFFB4; }
-
 #test {
   background-color: #af3; }
 

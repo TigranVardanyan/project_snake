@@ -1,48 +1,44 @@
-
-//soundtrack
-console.log(ez);
-
-let gameWrapper = document.getElementById('playgroundWrapper');
 /*  touch event   */
 var initialPoint;
 var finalPoint;
 
-gameWrapper.addEventListener('touchstart', function ( event ) {
-  event.preventDefault();
-  event.stopPropagation();
-  initialPoint = event.changedTouches[0];
-}, false);
-gameWrapper.addEventListener('touchend', function ( event ) {
-  event.preventDefault();
-  event.stopPropagation();
-  finalPoint = event.changedTouches[0];
-  let xTouch = finalPoint.pageX - initialPoint.pageX;
-  let yTouch = finalPoint.pageY - initialPoint.pageY;
-  let xTouchAbs = Math.abs(xTouch);
-  let yTouchAbs = Math.abs(yTouch);
-  console.log('xTouch', xTouch)
-  console.log('yTouch', yTouch)
-  console.log('xTouchAbs', xTouchAbs)
-  console.log('yTouchAbs', yTouchAbs)
-  if ( xTouchAbs > yTouchAbs ) {
-    if ( xTouch > 0 ) {
-      direction = 'right';
-    }
-    else if ( xTouch < 0 ) {
-      direction = 'left';
-    }
-  }
-  else if ( yTouchAbs > xTouchAbs ) {
-    if ( yTouch < 0 ) {
-      direction = 'up';
-    }
-    else if ( yTouch > 0 ) {
-      direction = 'down';
-    }
-  }
-  console.log(direction)
-}, false);
+//gameWrapper.addEventListener('touchstart', function ( event ) {
+//  event.preventDefault();
+//  event.stopPropagation();
+//  initialPoint = event.changedTouches[0];
+//}, false);
+//gameWrapper.addEventListener('touchend', function ( event ) {
+//  event.preventDefault();
+//  event.stopPropagation();
+//  finalPoint = event.changedTouches[0];
+//  let xTouch = finalPoint.pageX - initialPoint.pageX;
+//  let yTouch = finalPoint.pageY - initialPoint.pageY;
+//  let xTouchAbs = Math.abs(xTouch);
+//  let yTouchAbs = Math.abs(yTouch);
+//  console.log('xTouch', xTouch)
+//  console.log('yTouch', yTouch)
+//  console.log('xTouchAbs', xTouchAbs)
+//  console.log('yTouchAbs', yTouchAbs)
+//  if ( xTouchAbs > yTouchAbs ) {
+//    if ( xTouch > 0 ) {
+//      direction = 'right';
+//    }
+//    else if ( xTouch < 0 ) {
+//      direction = 'left';
+//    }
+//  }
+//  else if ( yTouchAbs > xTouchAbs ) {
+//    if ( yTouch < 0 ) {
+//      direction = 'up';
+//    }
+//    else if ( yTouch > 0 ) {
+//      direction = 'down';
+//    }
+//  }
+//  console.log(direction)
+//}, false);
 document.onkeydown = keyPress; // при спуске клавишы в документе выполнить keyPress
+
 var snake_position = []; //массив с координатами частей  змейки
 var snake_position_number = []; //массив с номеропозицией частей змейки
 
