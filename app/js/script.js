@@ -1,3 +1,5 @@
+import Game from "./Game.js";
+
 $('#btn-start').click(function () {
   $('#control-settings').collapse('hide');
   $('#control-info').collapse('hide');
@@ -27,3 +29,10 @@ $('#btn-info').click(function () {
   localHigscoreList.innerHTML = highscoreHTML;
 });
 
+document.getElementById('btn-start').addEventListener("click", () => {
+  console.log('123');
+  const game = new Game('playgroundWrapper', 200, 1);
+})
+
+
+export const ez = 11

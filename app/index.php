@@ -32,7 +32,7 @@
 </div>
 <div class="accordion" id="accordion">
   <div class="collapse" id="control-game">
-    <div class="wrapper" id="gameWrapper"></div>
+    <div class="wrapper" id="playgroundWrapper"></div>
   </div>
   <div class="collapse"  id="control-settings">
     <div class="card card-body">
@@ -121,9 +121,6 @@
 </div>
 
 
-<!-- Babel -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
-
 <script
     src="https://code.jquery.com/jquery-3.5.0.min.js"
     integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
@@ -136,7 +133,9 @@
         crossorigin="anonymous"></script>
 
 <!-- user scripts -->
-<script type="text/babel" src="js/script.js"></script>
-<script type="text/babel" src="js/game.js"></script>
+<script type="module" src="js/Game.js"></script>
+<script type="module" src="js/script.js"></script>
+
+<script type="" src="js/game1.js"></script>
 </body>
 </html>
