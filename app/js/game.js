@@ -11,62 +11,20 @@ class Game {
 }
 
 //soundtrack
-let soundtrack = new Audio(); // new audio
-soundtrack.src = 'playback.wav'; // file path
-soundtrack.loop = true; // loop
+let soundtrack = new Audio();
+soundtrack.src = 'playback.wav';
+soundtrack.loop = true;
 
 //die sound
-let dieSound = new Audio(); // new audio
-dieSound.src = 'DieSound.wav'; // file path
+let dieSound = new Audio();
+dieSound.src = 'DieSound.wav';
 
 //bite sound
-let biteSound = new Audio(); // Создаём новый элемент Audio
-biteSound.src = 'bite.wav'; // Указываем путь к звуку "клика"
+let biteSound = new Audio();
+biteSound.src = 'bite.wav';
 
 
 let g = new Game();
-//
-// class Snake {
-//   EateSound() {
-//     let audio = new Audio(); // New Audio element
-//     audio.src = 'hb17.wav'; // path
-//     audio.autoplay = true; // autoplay
-//   }
-//   GetStart() {
-//     if(onOff == 0) {
-//       if (rb1.checked) {
-//         speed = rb1.value;
-//       }
-//       if (rb2.checked) {
-//         speed = rb2.value;
-//       }
-//       if (rb3.checked) {
-//         speed = rb3.value;
-//       }
-//       direction = 'right';
-//       point = 0;
-//       points.innerHTML = '0';
-//       snake_position[0] = [3, 4]; // вводим координаты тела змеи
-//       snake_position[1] = [4, 4]; // вводим координаты тела змеи
-//       snake_position[2] = [5, 4]; // вводим координаты тела змеи
-//       snake_position[3] = [6, 4]; // вводим координаты тела змеи
-//       snake_position[4] = [7, 4]; // вводим координаты тела змеи
-//       snake_position[5] = [8, 4]; // вводим координаты тела змеи
-//       for(var i = 0; i < snake_position.length; i++) { // от [0 , 5]
-//         snake_positionX = snake_position[i][0];//на каждую итерацию выводит Х и У каждой части змеи
-//         snake_positionY = snake_position[i][1];
-//         var positionNumber = +xMax*(snake_positionY-1)+snake_positionX; // считает номеропозицию каждой части
-//         snake_position_number[i] = +positionNumber; // добовляем в массив
-//         cells[snake_position_number[i]].classList.add('snake'); //каждому элементу массива добовляет класс снейк
-//       }
-//       autoGo();
-//       apple();
-//       onOff = 1;
-//     } else {
-//       onOff = 0;
-//     }
-//   }
-// }
 
 let gameWrapper = document.getElementById('gameWrapper');
 
@@ -105,10 +63,6 @@ gameWrapper.addEventListener('touchend', function (event) {
       direction = 'down';
     }
   }
-  // console.group("x-y");
-  // console.log("x " + xTouch);
-  // console.log("y " + yTouch);
-  // console.groupEnd('x-y');
 
   console.log(direction)
 

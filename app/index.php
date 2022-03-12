@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php require_once('head.php'); ?>
-<?php
-try{
-  $sql = $conn->prepare("SELECT * FROM highscore ORDER BY score DESC LIMIT 5");
-  $sql->execute();
-  $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-  echo $e;
-}
-?>
+<head>
+  <noscript><div><img src="https://mc.yandex.ru/watch/62038246" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Tigran Vardanyan">
+  <!--fontawesome-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <!--bootstrap-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- user CSS -->
+  <link rel="stylesheet" href="css/main.css">
+
+  <title>Project snake</title>
+</head>
 <body>
 <div id="points"></div>
 <div class="control-panel">
@@ -36,7 +43,6 @@ try{
             <input id="userName" type="text" class="form-control" value="">
           </li>
         </ul>
-
       </div>
       <div class="snake-speed card-1">
         <ul class="list-group">
@@ -105,54 +111,6 @@ try{
             </tr>
             </thead>
             <tbody id="localHigscoreList">
-            <script>
-              let localHigscoreList = document.getElementById('localHigscoreList');
-              let localHighscoreTop = JSON.parse(localStorage.getItem('highscore')).sort(function(a, b) {
-                return a - b;
-              }).reverse();
-              let highscoreHTML = '';
-              for(let i = 0; i < 5; i++) {
-                highscoreHTML += `<tr>
-                                    <th scope="row">${i+1}</th>
-                                    <td scope="col">${localHighscoreTop[i] ? localHighscoreTop[i] : 0 }</td>
-                                  </tr>`;
-              }
-              localHigscoreList.innerHTML = highscoreHTML;
-            </script>
-
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h2 class="mb-0">
-            <button class="btn btn-link collapsed" >
-              Global highscore
-            </button>
-          </h2>
-        </div>
-        <div id="collapseTwo">
-          <table class="table">
-            <thead>
-            <tr>
-              <th scope="row">#</th>
-              <th scope="row">Name</th>
-              <th scope="row">Point</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            for ($i = 0; $i < count($result); $i++) {
-              ?>
-              <tr>
-                <th scope="col"><?php echo $i+1 ?></th>
-                <td scope="col"><?php echo $result[$i]["name"] ?></td>
-                <td scope="col"><?php echo $result[$i]["score"] ?></td>
-              </tr>
-              <?php
-            }
-            ?>
 
             </tbody>
           </table>
