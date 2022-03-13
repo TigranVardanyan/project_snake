@@ -31,6 +31,6 @@ $('#btn-info').click(function () {
 
 document.getElementById('btn-start').addEventListener("click", () => {
   console.log('123');
-  const game = new Game('playgroundWrapper', 200, 1);
+  const game = new Game('playgroundWrapper', 500, 1);
   window.game = game;
 })
