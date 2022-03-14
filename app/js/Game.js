@@ -70,7 +70,7 @@ export default class Game {
     this.snackRespawn(this.xCells * this.cell, this.yCells * this.cell)
     setInterval(this.step.bind(null, this.direction), this.speed)
     document.onkeydown = this.handleKeydownEvent
-    this.audio.play('soundTrack')
+    this.audio.play('soundTrack', true)
   }
   handleKeydownEvent = ( event ) => {
     let keyCode;
