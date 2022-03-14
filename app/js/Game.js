@@ -1,14 +1,8 @@
-/**
- * Game ctor.
- * @constructor
- * @param {string} playgroundWrapper
- * @param {number} speed
- * @param {number} snack
- * @param {number} xCells
- * @param {number} yCells
- */
+import Playlist from "./Playlist.js";
+
 export default class Game {
   ctx = null;
+  audio = null;
   currentPosition = [];
   snackPosition = [];
   direction = 'right'
@@ -41,11 +35,15 @@ export default class Game {
   }
 
   setUpAudio = () => {
-    this.audio = [];
-    this.audio['soundtrack'] = new Audio('assets/playback.wav');
-    this.audio['dieSound'] = new Audio('assets/dieSound.wav');
-    this.audio['biteSound'] = new Audio('assets/bite.wav');
+    let audio = [];
+    audio['soundTrack'] = new Audio('assets/playback.wav');
+    audio['dieSound'] = new Audio('assets/dieSound.wav');
+    audio['biteSound'] = new Audio('assets/bite.wav');
+
+    this.audio = new Playlist(audio)
+    window.audio = this.audio;
   }
+
   /*
   * @param {number} width
   * @param {number} height
@@ -72,6 +70,7 @@ export default class Game {
     this.snackRespawn(this.xCells * this.cell, this.yCells * this.cell)
     setInterval(this.step.bind(null, this.direction), this.speed)
     document.onkeydown = this.handleKeydownEvent
+    this.audio.play('soundTrack')
   }
   handleKeydownEvent = ( event ) => {
     let keyCode;
@@ -101,7 +100,7 @@ export default class Game {
       default:
         break;
     }
-    console.log(this.direction);
+    //console.log(this.direction);
   }
   snackRespawn = (width, height) => {
     let snack_position_X = Math.round(Math.random() * (width - this.cell));
@@ -118,7 +117,7 @@ export default class Game {
   }
 
   step = () => {
-    console.log('this.direction - ' + this.direction);
+    //console.log('this.direction - ' + this.direction);
     switch ( this.direction ) {
       case 'left':
         this.currentPosition = [this.currentPosition[0] - this.cell, this.currentPosition[1]]
