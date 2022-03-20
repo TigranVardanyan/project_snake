@@ -13,7 +13,7 @@ export default class Playlist {
    * @param {boolean} looped - should be played in a loop
    */
   play = ( audio, looped = false) => {
-    if ( loop ) {
+    if ( looped ) {
       this.playlist[audio].loop = true
     }
     this.playlist[audio].play();
