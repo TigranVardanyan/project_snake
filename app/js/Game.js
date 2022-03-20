@@ -70,7 +70,7 @@ export default class Game {
     this.snackRespawn(this.xCells * this.cell, this.yCells * this.cell)
     setInterval(this.step.bind(null, this.direction), this.speed)
     document.onkeydown = this.handleKeydownEvent
-    this.audio.play('soundTrack', true)
+    //this.audio.play('soundTrack', true)
   }
   handleKeydownEvent = ( event ) => {
     let keyCode;
@@ -100,11 +100,14 @@ export default class Game {
       default:
         break;
     }
+    //this.step(this.direction) // uncomment this for manual walking
     //console.log(this.direction);
   }
   snackRespawn = (width, height) => {
-    let snack_position_X = Math.round(Math.random() * (width - this.cell));
-    let snack_position_Y = Math.round(Math.random() * (height - this.cell));
+    let snack_position_X = Math.round(Math.random() * width);
+    snack_position_X = snack_position_X - snack_position_X % this.cell; //for match with snake position
+    let snack_position_Y = Math.round(Math.random() * height);
+    snack_position_Y = snack_position_Y - snack_position_Y % this.cell; //for match with snake position
     this.snackPosition = [snack_position_X, snack_position_Y];
   }
 

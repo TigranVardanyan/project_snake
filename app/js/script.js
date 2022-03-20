@@ -30,6 +30,6 @@ $('#btn-info').click(function () {
 });
 
 document.getElementById('btn-start').addEventListener("click", () => {
-  const game = new Game('playgroundWrapper', 500, 1);
+  const game = new Game('playgroundWrapper', 250, 1);
   window.game = game;
 })
